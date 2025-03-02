@@ -12,4 +12,4 @@ python app.py
 
 python test_login.py
 
-Don't forget to change GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in app.py!
+#### Don't forget to change GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET in app.py!
