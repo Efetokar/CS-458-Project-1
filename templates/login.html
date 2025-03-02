@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="login-container">
+    <h1>Log In</h1>
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="{{ url_for('login') }}" novalidate>
+      <label for="user_input">Email or Phone</label>
+      <input type="text" id="user_input" name="user_input" required title="This field cannot be empty."/>
+      
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required minlength="6" maxlength="50" title="Password must be 6-50 characters long."/>
+      
+      <button type="submit">Log In</button>
+    </form>
+    
+    <hr>
+    
+    <a href="javascript:void(0);" class="google-btn" onclick="openGoogleAuth()">
+      <img src="{{ url_for('static', filename='google_logo.png') }}" alt="Google Logo">
+      Sign in with Google
+    </a>
+  </div>
+
+  <script>
+    let authPopup;
+
+    function openGoogleAuth() {
+        const googleLoginUrl = "{{ url_for('login_with_google', _external=True) }}";
+        authPopup = window.open(googleLoginUrl, "GoogleLogin", "width=500,height=600");
+
+        if (!authPopup) {
+            alert("Popup blocked! Please check your browser settings.");
+        }
+
+        const popupInterval = setInterval(() => {
+            if (authPopup.closed) {
+                clearInterval(popupInterval);
+                window.location.href = '/welcome';
+            }
+        }, 1000);
+    }
+  </script>
+</body>
+</html>
